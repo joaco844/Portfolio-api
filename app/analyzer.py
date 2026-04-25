@@ -1,11 +1,10 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 from google import genai
-from google.genai import types
 import os
 import json
-from dotenv import load_dotenv
 from app.models import DocumentAnalysis
-
-load_dotenv()
 
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
@@ -27,7 +26,7 @@ def analyze_document(text: str) -> DocumentAnalysis:
     """
 
     response = client.models.generate_content(
-        model="gemini-1.5-flash-latest",
+        model="gemini-2.5-flash",
         contents=prompt
     )
 
