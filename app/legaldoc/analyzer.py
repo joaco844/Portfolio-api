@@ -1,15 +1,9 @@
-from dotenv import load_dotenv
-load_dotenv()
-
 from google import genai
-import os
 import json
 from app.legaldoc.models import DocumentAnalysis
 
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
-
-def analyze_document(text: str) -> DocumentAnalysis:
+def analyze_document(text: str, api_key: str, model: str) -> DocumentAnalysis:
     prompt = f"""
     Analyze the following legal document and respond ONLY with a JSON object.
     No markdown, no explanation, just the JSON.
@@ -26,8 +20,9 @@ def analyze_document(text: str) -> DocumentAnalysis:
     {text}
     """
 
+    client = genai.Client(api_key=api_key)
     response = client.models.generate_content(
-        model="gemini-2.5-flash",
+        model=model,
         contents=prompt
     )
 
