@@ -7,3 +7,5 @@ pytest
 python-multipart
 pypdf
 python-gitlab
+qdrant-client
+tiktoken
