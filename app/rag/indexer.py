@@ -6,7 +6,7 @@ from qdrant_client import QdrantClient
 from qdrant_client.http.models import Distance, VectorParams, PointStruct
 
 COLLECTION_NAME = "rag_documents"
-EMBEDDING_MODEL = "embedding-001"
+EMBEDDING_MODEL = "text-embedding-004"
 EMBEDDING_DIM = 768
 CHUNK_SIZE = 500
 CHUNK_OVERLAP = 50
@@ -37,8 +37,8 @@ def _chunk_text(text: str, chunk_size: int = CHUNK_SIZE, overlap: int = CHUNK_OV
     return chunks
 
 
-def _embed(texts: list[str], api_key: str) -> list[list[float]]:
-    client = genai.Client(api_key=api_key, http_options=types.HttpOptions(api_version='v1'))
+def _embed(texts: list[str], gemini_api_key: str) -> list[list[float]]:
+    client = genai.Client(api_key=gemini_api_key, http_options=types.HttpOptions(api_version='v1'))
     embeddings = []
     for text in texts:
         result = client.models.embed_content(model=EMBEDDING_MODEL, contents=text)
